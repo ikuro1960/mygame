@@ -65,6 +65,14 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 euler = transform.eulerAngles;
         transform.rotation = Quaternion.Euler(0f, euler.y, 0f);
+        
+        if (cameraTransform != null)
+        {
+            float initX = cameraTransform.localEulerAngles.x;
+            // 180度を超えて 345度 などになっている場合の補正
+            if (initX > 180f) initX -= 360f;
+            cameraPitch = initX;
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
